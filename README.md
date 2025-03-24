@@ -1,68 +1,144 @@
-# vscode-copy-code-contents
-<<<<<<< HEAD
+# Copy File Contents - VS Code Extension
 
-A Visual Studio Code extension that copies the contents of selected code files (or all code files within selected directories) to the clipboard, with file paths included as headers. Supports various code file extensions and provides robust error handling.
+The _Copy File Contents_ extension for Visual Studio Code allows users to quickly copy the contents of selected code files or entire folders containing code files to the clipboard. It is designed to streamline workflows for developers who need to share, document, or process code snippets efficiently.
+
+---
 
 ## Features
 
-* **Copy Code File Contents:** Copies the contents of selected code files to the clipboard.
-* **Directory Support:** Recursively copies the contents of all code files within selected directories.
-* **File Path Headers:** Includes the relative file path as a header before the content of each file.
-* **Code File Extension Filtering:** Only copies files with recognized code file extensions (configurable).
-* **Error Handling:** Provides informative error and warning messages.
-* **Clipboard Management:** Safely handles and restores the clipboard during path retrieval.
-* **Multi-selection support:** Handles multiple file and folder selections.
-* **Active Editor Fallback:** If nothing is selected, copies the content of the currently active editor.
+- **Copy Single File Contents**: Copy the contents of a single code file directly to the clipboard.
+- **Copy Multiple Files**: Select multiple files or folders and copy the contents of all recognized code files within them.
+- **Folder Support**: Recursively processes folders to find and copy contents of all supported code files.
+- **File Path Headers**: Includes relative file paths as headers in the copied content for better organization.
+- **Customizable Code File Extensions**: Supports a predefined set of code file extensions (e.g., `.ts`, `.js`, `.py`, etc.), which can be customized.
+- **Clipboard Preservation**: Restores the original clipboard content after execution to avoid disrupting your workflow.
+- **Error Handling**: Provides informative error and warning messages for unsupported files or processing issues.
 
-## Supported File Extensions
-
-The extension supports the following code file extensions by default:
-
-    .ts, .tsx, .js, .jsx, .py, .java, .cpp, .c, .cs, .go, .rb, .php, .html, .css, .scss, .json, .md
-
-You can customize this list by modifying the `codeFileExtensions` set in the extension's code.
-
-## Usage
-
-1.  **Select Files or Folders:** Select the code files or directories you want to copy the contents from in the VS Code Explorer.
-2.  **Run the Command:** Open the command palette (Ctrl+Shift+P or Cmd+Shift+P) and type "Copy File Contents" and select `Copy File Contents`.
-3.  **Paste the Contents:** Paste the copied contents from the clipboard into your desired location.
+---
 
 ## Installation
 
-1.  Open Visual Studio Code.
-2.  Go to the Extensions view (Ctrl+Shift+X or Cmd+Shift+X).
-3.  Search for "vscode-copy-code-contents".
-4.  Click "Install".
+1. **Via VS Code Marketplace (Recommended)**:
+   - Search for "Copy File Contents" in the VS Code Extensions Marketplace.
+   - Click **Install** to add it to your VS Code environment.
 
-## Example
+2. **Manual Installation**:
+   - Clone or download this repository.
+   - Open a terminal in the project directory and run:
+     ```bash
+     npm install
+     ```
+   - Package the extension:
+     ```bash
+     vsce package
+     ```
+   - Install the generated `.vsix` file in VS Code via the "Install from VSIX" option in the Extensions view.
 
-If you select two files, `file1.js` and `file2.py`, and run the command, the clipboard will contain:
+---
 
-\`\`\`
---- File: file1.js ---
-// Content of file1.js
+## Usage
 
---- File: file2.py ---
-# Content of file2.py
-\`\`\`
+1. **Activate the Extension**:
+   - The extension activates automatically when installed in VS Code.
 
-If you select a folder, the extension will recursively copy the contents of all code files within that folder.
+2. **Copy File Contents**:
+   - **Single File**: Right-click a code file in the Explorer or open it in the editor, then select **"Copy File Contents"** from the context menu (if registered) or run the command manually.
+   - **Multiple Files/Folders**: Select multiple files or folders in the Explorer, then execute the command.
+   - **Command Palette**: Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on macOS), type `Copy File Contents`, and select the command.
+
+3. **Supported File Types**:
+   - The extension recognizes common code file extensions such as `.ts`, `.js`, `.py`, `.cpp`, `.java`, `.html`, `.css`, `.json`, `.md`, and more. Unsupported files are skipped with a warning.
+
+4. **Output**:
+   - The contents of all processed files are copied to the clipboard, separated by newlines, with each file prefixed by its relative path (e.g., `--- File: src/index.ts ---`).
+
+---
+
+## Configuration
+
+Currently, the extension uses a hardcoded list of supported file extensions. To customize this:
+
+1. Open the extension's source code (`extension.ts`).
+2. Modify the `codeFileExtensions` Set to include or exclude file extensions as needed:
+   ```typescript
+   const codeFileExtensions = new Set(['.ts', '.js', '.py', /* add your extensions */]);
+   ```
+3. Rebuild and reinstall the extension.
+
+Future updates may include a settings UI for easier customization.
+
+---
 
 ## Development
 
-1.  Clone the repository.
-2.  Run `npm install`.
-3.  Open the project in VS Code.
-4.  Press F5 to start debugging.
+### Prerequisites
+- [Node.js](https://nodejs.org/) and npm (required for package management and building the extension)
+- [Visual Studio Code](https://code.visualstudio.com/) (the development environment)
+- [TypeScript](https://www.typescriptlang.org/) (for compiling the extension code)
+- VS Code Extension Development dependencies (e.g., the `vscode` npm package)
+
+### Setup
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/copy-file-contents
+   cd copy-file-contents
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Open the project in VS Code:
+   - Launch VS Code and open the cloned folder (**File > Open Folder**).
+
+### Building and Running
+- Compile the TypeScript code:
+  ```bash
+  npm run compile
+  ```
+- Run the extension in development mode:
+  1. In VS Code, press `F5` to open a new Extension Development Host window.
+  2. Test the extension by selecting files or folders and running the **"Copy File Contents"** command.
+- Package the extension (optional, for distribution):
+  ```bash
+  vsce package
+  ```
+
+### Notes
+- Ensure you have the latest version of Node.js installed to avoid compatibility issues.
+- Changes to the code require recompilation (`npm run compile`) before testing with `F5`.
+
+---
+
+## Known Issues
+
+- **Clipboard Workaround**: The extension uses a workaround (`copyFilePath`) to detect selected paths due to inconsistent argument passing from VS Code. This may fail in rare cases, falling back to the active editor or selected resource.
+- **Platform-Specific Path Parsing**: Clipboard path separation (e.g., newlines) may behave differently across operating systems.
+- **Performance**: Processing large folders with many files may take time due to recursive file reading.
+
+Report additional issues or suggestions in the [Issues](https://github.com/yourusername/copy-file-contents/issues) section.
+
+---
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a pull request or open an issue.
+Contributions are welcome! To contribute:
+
+1. Fork the repository.
+2. Create a feature branch (`git checkout -b feature/your-feature`).
+3. Commit your changes (`git commit -m "Add your feature"`).
+4. Push to the branch (`git push origin feature/your-feature`).
+5. Open a Pull Request.
+
+---
 
 ## License
 
-[MIT](LICENSE)
-=======
-A Visual Studio Code extension that copies the contents of selected code files (or all code files within selected directories) to the clipboard, with file paths included as headers. Supports various code file extensions and provides robust error handling.
->>>>>>> dc4ba30b4d10c9ba6b323e686d2d913a7db1560f
+This extension is licensed under the [MIT License](LICENSE).
+
+---
+
+## Acknowledgments
+
+- Built with the [VS Code Extension API](https://code.visualstudio.com/api).
+- Powered by [TypeScript](https://www.typescriptlang.org/).
+- Inspired by the need to simplify code sharing workflows.
