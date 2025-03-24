@@ -1,4 +1,5 @@
 # vscode-copy-code-contents
+<<<<<<< HEAD
 
 A Visual Studio Code extension that copies the contents of selected code files (or all code files within selected directories) to the clipboard, with file paths included as headers. Supports various code file extensions and provides robust error handling.
 
@@ -62,3 +63,6 @@ Contributions are welcome! Please feel free to submit a pull request or open an 
 ## License
 
 [MIT](LICENSE)
+=======
+A Visual Studio Code extension that copies the contents of selected code files (or all code files within selected directories) to the clipboard, with file paths included as headers. Supports various code file extensions and provides robust error handling.
+>>>>>>> dc4ba30b4d10c9ba6b323e686d2d913a7db1560f
