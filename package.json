@@ -3,52 +3,52 @@
     "displayName": "Copy File Contents",
     "description": "Adds a context menu option to copy the contents of selected files or all code files in a folder.",
     "publisher": "lepsi",
-    "version": "0.0.2",
+    "version": "0.2.0",
     "engines": {
-      "vscode": "^1.78.0"
+        "vscode": "^1.78.0"
     },
     "categories": [
-      "Other"
+        "Other"
     ],
     "activationEvents": [
-      "onStartupFinished"
+        "onStartupFinished"
     ],
     "main": "./out/extension.js",
     "contributes": {
-      "commands": [
-        {
-          "command": "copy-file-contents.copy",
-          "title": "Copy File Contents"
+        "commands": [
+            {
+                "command": "copy-file-contents.copy",
+                "title": "Copy File Contents"
+            }
+        ],
+        "menus": {
+            "explorer/context": [
+                {
+                    "command": "copy-file-contents.copy",
+                    "group": "navigation"
+                }
+            ]
         }
-      ],
-      "menus": {
-        "explorer/context": [
-          {
-            "command": "copy-file-contents.copy",
-            "group": "navigation"
-          }
-        ]
-      }
     },
     "scripts": {
-      "vscode:prepublish": "npm run compile",
-      "compile": "tsc -p ./",
-      "watch": "tsc -watch -p ./",
-      "pretest": "npm run compile && npm run lint",
-      "lint": "eslint src --ext ts",
-      "test": "node ./out/test/runTest.js"
+        "vscode:prepublish": "npm run compile",
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./",
+        "pretest": "npm run compile && npm run lint",
+        "lint": "eslint src --ext ts",
+        "test": "node ./out/test/runTest.js"
     },
     "devDependencies": {
-      "@types/node": "16.x",
-      "@typescript-eslint/eslint-plugin": "^5.27.0",
-      "@typescript-eslint/parser": "^5.27.0",
-      "@vscode/test-electron": "^2.1.5",
-      "eslint": "^8.16.0",
-      "typescript": "^4.7.4"
+        "@types/node": "16.x",
+        "@typescript-eslint/eslint-plugin": "^5.27.0",
+        "@typescript-eslint/parser": "^5.27.0",
+        "@vscode/test-electron": "^2.1.5",
+        "eslint": "^8.16.0",
+        "typescript": "^4.7.4"
     },
     "dependencies": {},
     "repository": {
-    "type": "git",
-    "url": "https://github.com/1epsilon1/vscode-copy-code-contents"
-  }
-  }
+        "type": "git",
+        "url": "https://github.com/1epsilon1/vscode-copy-code-contents"
+    }
+}
