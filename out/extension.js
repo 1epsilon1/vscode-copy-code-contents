@@ -54,7 +54,7 @@ function activate(context) {
             const clipboardContent = yield vscode.env.clipboard.readText();
             console.log('Clipboard content after copyFilePath:', clipboardContent);
             // Parse the clipboard content (paths are newline-separated on Windows, may vary by platform)
-            paths = clipboardContent.split(/\r?\n/).filter(path => path.trim() !== '');
+            paths = clipboardContent.split(/\r?\n/).filter((path) => path.trim() !== '');
             console.log('Parsed paths:', paths);
             // Restore the original clipboard content
             yield vscode.env.clipboard.writeText(originalClipboard);

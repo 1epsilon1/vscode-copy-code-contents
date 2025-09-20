@@ -2,10 +2,10 @@
     "name": "copy-file-contents",
     "displayName": "Copy File Contents",
     "description": "Adds a context menu option to copy the contents of selected files or all code files in a folder.",
-    "publisher": "lepsi",
-    "version": "0.2.0",
+    "publisher": "serveyouai",
+    "version": "0.3.0",
     "engines": {
-        "vscode": "^1.78.0"
+      "vscode": "^1.102.0"
     },
     "categories": [
         "Other"
@@ -19,12 +19,20 @@
             {
                 "command": "copy-file-contents.copy",
                 "title": "Copy File Contents"
+            },
+            {
+                "command": "copy-file-contents.pasteDiff",
+                "title": "Paste Diff"
             }
         ],
         "menus": {
             "explorer/context": [
                 {
                     "command": "copy-file-contents.copy",
+                    "group": "navigation"
+                },
+                {
+                    "command": "copy-file-contents.pasteDiff",
                     "group": "navigation"
                 }
             ]
@@ -40,13 +48,18 @@
     },
     "devDependencies": {
         "@types/node": "16.x",
+        "@types/vscode": "^1.102.0",
         "@typescript-eslint/eslint-plugin": "^5.27.0",
         "@typescript-eslint/parser": "^5.27.0",
         "@vscode/test-electron": "^2.1.5",
         "eslint": "^8.16.0",
         "typescript": "^4.7.4"
     },
-    "dependencies": {},
+    "dependencies": {
+        "node": "^24.4.0",
+        "diff": "^5.2.0",
+        "parse-diff": "^0.7.1"
+    },
     "repository": {
         "type": "git",
         "url": "https://github.com/1epsilon1/vscode-copy-code-contents"
